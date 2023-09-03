@@ -9,13 +9,13 @@
 <body>
     <p class="super_element">Привет</p>
 
-    <img src="https://placeimg.com/50/50/animals" alt="">
-    <img src="https://placeimg.com/50/50/arch" alt="">
-    <img src="https://placeimg.com/50/50/nature" alt="">
-    <img src="https://placeimg.com/50/50/people" alt="">
-    <img src="https://placeimg.com/50/50/tech" alt="">
-    <img src="https://placeimg.com/50/50/tech/grayscale" alt="">
-    <img src="https://placeimg.com/50/50/tech/sepia" alt="">
+    <img src="https://picsum.photos/id/13/50" alt="">
+    <img src="https://picsum.photos/id/20/50" alt="">
+    <img src="https://picsum.photos/id/24/50" alt="">
+    <img src="https://picsum.photos/id/27/50" alt="">
+    <img src="https://picsum.photos/id/29/50" alt="">
+    <img src="https://picsum.photos/id/36/50" alt="">
+    <img src="https://picsum.photos/id/40/50" alt="">
 
     <br>
 
@@ -45,28 +45,73 @@
     </ul>
 
     <script>
+
+        // я заменил картинки в html из задания, так как сервис placeimg.com
+        // не работает с 30 июня 2023
+
+
         'use strict';
         // 1. Необходимо вывести сообщение в консоль`все теги прогрузились`, когда все теги будут созданы браузером.
-        
+        document.addEventListener('DOMContentLoaded', () => console.log('Все теги прогрузились'));
+
         // 2. Необходимо вывести сообщение в консоль `страница загрузилась`, когда все ресурсы страницы будут загружены.
-        
+        window.addEventListener('load', () => console.log('Страница прогрузилась'));
+
+
         // 3. При клике на какой-либо тег на странице в консоль должно выводиться сообщение наподобие:
-        // - Класс `super_element` присутствует в элементе `div`. 
+        // - Класс `super_element` присутствует в элементе `div`.
         // - сообщение должно определять присутствует или отсутствует класс `super_element` у элемента, а также выводить в нижнем регистре верный тег в данной строке, по которому был совершен клик.
         // - Необходимо использовать делегирование.
+        const classToFind = 'super_element';
+
+        document.body.addEventListener('click', (e) => {
+            if (e.target.classList.contains(classToFind)) {
+                console.log(`У элемента ${e.target.localName} есть класс ${classToFind}`);
+            } else {
+                console.log(`У элемента ${e.target.localName} нет класса ${classToFind}`);
+            }
+        });
 
 
         // 4. Сделайте, чтобы при наведении на `textarea` в консоли появлялось сообщение: `Вы навели на textarea.`
+        document.querySelector('textarea').addEventListener('mouseover', () => {
+            console.log('Вы навели на textarea');
+        })
 
 
         // 5. Необходимо повесить событие клика на тег `ul`. В обработчике события в консоль необходимо выводить текст, который записан внутри элемента кнопки, по которой был произведен клик. Если клик был не по кнопке, то ничего выводить не нужно. Необходимо использовать делегирование.
+        document.querySelector('ul').addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                console.log(e.target.textContent);
+            }
+        })
 
 
         // 6. Вопрос: Почему в `console.log` пишется сначала текст из 5 задания и только потом выводится текст из 3 задания, если мы кликаем по кнопкам в `ul`? Ответ необходимо написать здесь же, под этим комментарием, своими словами.
 
+        /*
+         * Такое поведение происходит из-за всплытия. Обработчик события click
+         * висит на теге ul кликая на любой дочерний элемент тега ul, начинается
+         * всплытие от элемента на который кликнули вплоть до document.
+         * Всплытие происходит последовательно, то есть сперва событие всплывет,
+         * до обработчика на теге ul (будет выведен текст кнопки),
+         * затем всплывет к обработчику на document (будет проверено наличие
+         * класса super_element).
+         * Проверить фазу можно с помощью свойства event.eventPhase, если это
+         * свойство вывести в консоль при обработке события из задания 3, то
+         * будет выведена цифра 3, что означает BUBBLING_PHASE - фаза всплытия
+         *
+         * Если в обработчике, который висит на теге ul применить -
+         * event.stopPropagation(), то всплытие остановится и тогда до обработчика
+         * из задания 3 мы не дойдем.
+         */
+
 
         // 7. С помощью JS необходимо изменить цвет заднего фона каждого второго тега `li`.
 
-        
+        document.querySelectorAll('li:nth-of-type(even)')
+            .forEach(li => li.style.backgroundColor = 'red');
+
+
     </script>
 </body>
