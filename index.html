@@ -7,46 +7,66 @@
 </head>
 
 <body>
-    <p class="dropdown">Привет :)</p>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Dropdown button
-        </button>
-        <div class="menu dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-    </div>
+    <p class="super_element">Привет</p>
+
+    <img src="https://placeimg.com/50/50/animals" alt="">
+    <img src="https://placeimg.com/50/50/arch" alt="">
+    <img src="https://placeimg.com/50/50/nature" alt="">
+    <img src="https://placeimg.com/50/50/people" alt="">
+    <img src="https://placeimg.com/50/50/tech" alt="">
+    <img src="https://placeimg.com/50/50/tech/grayscale" alt="">
+    <img src="https://placeimg.com/50/50/tech/sepia" alt="">
+
+    <br>
+
+    <button>Кнопка</button>
+    <button class="super_element">Кнопка с классом btn</button>
+    <button>Кнопка</button>
+
+    <br>
+
+    <textarea></textarea>
+
+    <br>
+
+    <ul>
+        <li>
+            <button>Кнопка 1</button>
+        </li>
+        <li>
+            <button>Кнопка 2</button>
+        </li>
+        <li>
+            <button>Кнопка 3</button>
+        </li>
+        <li>
+            <button>Кнопка 4</button>
+        </li>
+    </ul>
+
     <script>
-        'use strict'
-        // 1. Ко всем элементам, имеющим класс `dropdown-item` добавить еще один класс `super-dropdown`, необходимо использовать методы `forEach` и `querySelectorAll` и свойство `classList` у элементов.
-        const dropdownItemEls = document.querySelectorAll('.dropdown-item');
-        [...dropdownItemEls].forEach(item => item.classList.add('super-dropdown'));
-
-        // 2. У элемента с классом `.btn` необходимо убрать класс `btn-secondary`, если он присутствует у этого элемента, либо добавить, если такого класса у элемента не было.
-        document.querySelector('.btn').classList.toggle('btn-secondary');
-
-        // 3. Необходимо удалить класс `dropdown-menu` у элемента, у которого присутствует класс `menu`.
-        document.querySelector('.menu').classList.remove('dropdown-menu');
-
-        // 4. Используя метод `insertAdjacentHTML` добавьте после `div` с классом `dropdown` следующую разметку:
-        // `<a href="#">link</a>`
-        const dropdownDivEl = document.querySelector('div.dropdown');
-        dropdownDivEl.insertAdjacentHTML('afterEnd', '<a href="#">link</a>');
+        'use strict';
+        // 1. Необходимо вывести сообщение в консоль`все теги прогрузились`, когда все теги будут созданы браузером.
+        
+        // 2. Необходимо вывести сообщение в консоль `страница загрузилась`, когда все ресурсы страницы будут загружены.
+        
+        // 3. При клике на какой-либо тег на странице в консоль должно выводиться сообщение наподобие:
+        // - Класс `super_element` присутствует в элементе `div`. 
+        // - сообщение должно определять присутствует или отсутствует класс `super_element` у элемента, а также выводить в нижнем регистре верный тег в данной строке, по которому был совершен клик.
+        // - Необходимо использовать делегирование.
 
 
-        // 5. У элемента с id `dropdownMenuButton` замените id на `superDropdown`.
-        document.querySelector('#dropdownMenuButton').id = 'superDropdown';
-
-        // 6. Добавьте атрибут `data-dd` со значением `3` элементу у которого существует атрибут `aria-labelledby` равный `dropdownMenuButton` используя `dataset`.
-        document.querySelector('[aria-labelledby="dropdownMenuButton"]')
-            .dataset.dd = 3;
+        // 4. Сделайте, чтобы при наведении на `textarea` в консоли появлялось сообщение: `Вы навели на textarea.`
 
 
-        // 7. Удалите атрибут `type` у элемента с классом `dropdown-toggle`.
-        document.querySelector('.dropdown-toggle').removeAttribute('type');
+        // 5. Необходимо повесить событие клика на тег `ul`. В обработчике события в консоль необходимо выводить текст, который записан внутри элемента кнопки, по которой был произведен клик. Если клик был не по кнопке, то ничего выводить не нужно. Необходимо использовать делегирование.
 
+
+        // 6. Вопрос: Почему в `console.log` пишется сначала текст из 5 задания и только потом выводится текст из 3 задания, если мы кликаем по кнопкам в `ul`? Ответ необходимо написать здесь же, под этим комментарием, своими словами.
+
+
+        // 7. С помощью JS необходимо изменить цвет заднего фона каждого второго тега `li`.
+
+        
     </script>
 </body>
