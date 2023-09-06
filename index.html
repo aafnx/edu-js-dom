@@ -84,7 +84,7 @@
             if (e.target.value) {
                 e.target.classList.remove('error');
                 e.target.setCustomValidity('');
-            } else if (e.target.localName !== 'button') {
+            } else if (!e.target.value && e.target.localName !== 'button') {
                 e.target.classList.add('error');
             }
         }
