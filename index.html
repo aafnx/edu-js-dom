@@ -5,6 +5,20 @@
     <meta charset="UTF-8">
     <title>Homework 5</title>
 </head>
+<style>
+    .message {
+        visibility: hidden;
+    }
+
+    .form-control {
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    .error {
+        border: 3px solid red;
+    }
+</style>
 
 <body>
     <input id="from" type="text">
@@ -41,18 +55,60 @@
 
     <script>
         'use strict';
-// 1. При изменении значения в `input с id="from"`, значение содержащееся в нем должно моментально отображаться в `span`. То есть при печати в input'е тег span также должен меняться.
+        // 1. При изменении значения в `input с id="from"`, значение содержащееся в нем должно моментально отображаться в `span`. То есть при печати в input'е тег span также должен меняться.
+
+        const spanEl = document.querySelector('span');
+        document.querySelector('#from').addEventListener('input', (e) => {
+            spanEl.textContent = e.target.value;
+        })
 
 
+        // 2. При клике на кнопку с классом `messageBtn` необходимо элементу с классом `message`:
+        // 	- добавить два класса: `animate_animated` и `animate_fadeInLeftBig`
+        // 	- поставить данному элементу стиль `visibility` в значение `'visible'`.
+        const messageEl = document.querySelector('.message');
+        document.querySelector('.messageBtn').addEventListener('click', () => {
+            messageEl.classList.add('animate_animated', 'animate_fadeInLeftBig');
+            messageEl.style.visibility = 'visible';
+        })
 
-// 2. При клике на кнопку с классом `messageBtn` необходимо элементу с классом `message`:
-// 	- добавить два класса: `animate_animated` и `animate_fadeInLeftBig`
-// 	- поставить данному элементу стиль `visibility` в значение `'visible'`.
+
+        // 3. Необходимо при отправке формы проверить, заполнены ли все поля в этой форме. Если какое-либо поле не заполнено, форма не должна отправляться, также должны быть подсвечены незаполненные поля (необходимо поставить класс `error` незаполненным полям). Как только пользователь начинает заполнять какое-либо поле, необходимо, при вводе в данное поле, произвести проверку:
+        // 	- Если поле пустое, необходимо данное поле подсветить (поставить класс `error` данному полю).
+        // 	- Если поле было чем-либо заполнено, подсветку (класс `error`) необходимо убрать.
+
+        const formEl = document.querySelector('form');
+        const inputFormEls = formEl.querySelectorAll('.form-control');
+
+        const toggleClassError = (e) => {
+            if (e.target.value) {
+                e.target.classList.remove('error');
+                e.target.setCustomValidity('');
+            } else if (e.target.localName !== 'button') {
+                e.target.classList.add('error');
+            }
+        }
+
+        formEl.addEventListener('submit', (e) => {
+            const itemsHasntValue = [...inputFormEls].map(item => item.value).includes('');
+
+            if (itemsHasntValue) {
+                e.preventDefault();
+                inputFormEls.forEach(input => {
+                    if (!input.value) {
+                        input.setCustomValidity('Заполните обязательное поле!')
+                    }
+                })
+            } else {
+                alert('Запрос отправлен!');
+            }
+            formEl.reportValidity();
 
 
-// 3. Необходимо при отправке формы проверить, заполнены ли все поля в этой форме. Если какое-либо поле не заполнено, форма не должна отправляться, также должны быть подсвечены незаполненные поля (необходимо поставить класс `error` незаполненным полям). Как только пользователь начинает заполнять какое-либо поле, необходимо, при вводе в данное поле, произвести проверку:
-// 	- Если поле пустое, необходимо данное поле подсветить (поставить класс `error` данному полю).
-// 	- Если поле было чем-либо заполнено, подсветку (класс `error`) необходимо убрать.
+        });
+        formEl.addEventListener('input', toggleClassError);
+        formEl.addEventListener('focusin', toggleClassError);
+        formEl.addEventListener('focusout', toggleClassError);
 
 
     </script>
