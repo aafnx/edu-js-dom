@@ -6,109 +6,107 @@
     <title>Homework 5</title>
 </head>
 <style>
-    .message {
-        visibility: hidden;
+    .content {
+        margin: 50px 0;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        display: grid;
+        grid: auto / repeat(3, minmax(auto, 260px));
     }
 
-    .form-control {
-        outline: none;
+    .card {
+        display: block;
+        text-decoration: none;
+        padding: 16px 8px;
+        border: 1px solid #000;
+        border-radius: 10px;
+        background-color: gainsboro;
         box-sizing: border-box;
     }
 
-    .error {
-        border: 3px solid red;
+    .card:hover {
+        cursor: pointer;
+        box-shadow: 10px 10px 10px 2px rgba(34, 60, 80, 0.2);
+    }
+
+    .card__img {
+        width: 100%;
+        height: 200px;
+    }
+
+    .card__heading {
+        text-align: center;
+        color: red;
+        line-height: 16px;
+    }
+
+    .card__description {
+        padding: 10px 5px;
+        background-color: black;
+        border-radius: 10px;
+        color: lightcyan;
+    }
+
+    .card__price {
+        color: violet;
     }
 </style>
 
 <body>
-    <input id="from" type="text">
-    В инпуте написано: <span></span>
+    <div class="content"></div>
+    <script type="module">
 
-    <br>
+        // Задание 1
 
-    <button class="messageBtn">Показать блок</button>
-    <div class="message">
-        Привет :)
-    </div>
+        // 1. Поиск в интернете (бесплатные api примеры).
+        // 2. Найти любые данные, на произвольную тему.
+        // 3. Создать файл `data.js`.
+        // 4. Создать переменную которая будет хранить данные из публичных api.
 
-    <br>
+        // Задание 2
 
-    <form>
-        <label>
-            Первый инпут:
-            <input class="form-control" type="text">
-        </label>
-        <br>
-        <br>
-        <label>
-            Второй инпут:
-            <select class="form-control">
-                <option value=""></option>
-                <option value="1">Один</option>
-                <option value="2">Два</option>
-            </select>
-        </label>
-        <br>
-        <br>
-        <button>Отправить</button>
-    </form>
+        // 1. Создать файл `index.html`.
+        // 2. Подключить `data.js`.
+        // 3. Сформировать контент из данных (картинка загловок и параграф).
+        // 4. Добавить данный контент в вёрстку.
+        // 5. *Добавить стили при необходимости (по желанию).
 
-    <script>
-        'use strict';
-        // 1. При изменении значения в `input с id="from"`, значение содержащееся в нем должно моментально отображаться в `span`. То есть при печати в input'е тег span также должен меняться.
+        import { json } from './data.js';
 
-        const spanEl = document.querySelector('span');
-        document.querySelector('#from').addEventListener('input', (e) => {
-            spanEl.textContent = e.target.value;
+        const data = JSON.parse(json);
+        const contentEl = document.querySelector('.content');
+
+        data.forEach(item => {
+            const itemCardEl = document.createElement('a');
+            itemCardEl.classList.add('card');
+            itemCardEl.href = item.url;
+            itemCardEl.dataset.id = item.id;
+
+            const imgCardEl = document.createElement('img');
+            imgCardEl.src = item.img;
+            imgCardEl.alt = `${item.name} photo`;
+            imgCardEl.classList.add('card__img');
+
+            const headingEl = document.createElement('h3');
+            headingEl.textContent = item.name;
+            headingEl.classList.add('card__heading');
+
+            const descCardEl = document.createElement('p');
+            descCardEl.textContent = item.description;
+            descCardEl.classList.add('card__description');
+
+            const priceCardEl = document.createElement('p');
+            priceCardEl.textContent = item.price;
+            priceCardEl.classList.add('card__price');
+
+
+
+            itemCardEl.append(imgCardEl, headingEl, descCardEl, priceCardEl)
+            contentEl.append(itemCardEl);
         })
 
 
-        // 2. При клике на кнопку с классом `messageBtn` необходимо элементу с классом `message`:
-        // 	- добавить два класса: `animate_animated` и `animate_fadeInLeftBig`
-        // 	- поставить данному элементу стиль `visibility` в значение `'visible'`.
-        const messageEl = document.querySelector('.message');
-        document.querySelector('.messageBtn').addEventListener('click', () => {
-            messageEl.classList.add('animate_animated', 'animate_fadeInLeftBig');
-            messageEl.style.visibility = 'visible';
-        })
-
-
-        // 3. Необходимо при отправке формы проверить, заполнены ли все поля в этой форме. Если какое-либо поле не заполнено, форма не должна отправляться, также должны быть подсвечены незаполненные поля (необходимо поставить класс `error` незаполненным полям). Как только пользователь начинает заполнять какое-либо поле, необходимо, при вводе в данное поле, произвести проверку:
-        // 	- Если поле пустое, необходимо данное поле подсветить (поставить класс `error` данному полю).
-        // 	- Если поле было чем-либо заполнено, подсветку (класс `error`) необходимо убрать.
-
-        const formEl = document.querySelector('form');
-        const inputFormEls = formEl.querySelectorAll('.form-control');
-
-        const toggleClassError = (e) => {
-            if (e.target.value) {
-                e.target.classList.remove('error');
-                e.target.setCustomValidity('');
-            } else if (!e.target.value && e.target.localName !== 'button') {
-                e.target.classList.add('error');
-            }
-        }
-
-        formEl.addEventListener('submit', (e) => {
-            const itemsHasntValue = [...inputFormEls].map(item => item.value).includes('');
-
-            if (itemsHasntValue) {
-                e.preventDefault();
-                inputFormEls.forEach(input => {
-                    if (!input.value) {
-                        input.setCustomValidity('Заполните обязательное поле!')
-                    }
-                })
-            } else {
-                alert('Запрос отправлен!');
-            }
-            formEl.reportValidity();
-
-
-        });
-        formEl.addEventListener('input', toggleClassError);
-        formEl.addEventListener('focusin', toggleClassError);
-        formEl.addEventListener('focusout', toggleClassError);
 
 
     </script>
