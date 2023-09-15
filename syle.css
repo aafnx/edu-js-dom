@@ -192,6 +192,16 @@
   color: #9F9F9F;
 }
 
+.error {
+  margin: 100px auto;
+  color: red;
+  padding: 50px 200px;
+  text-transform: uppercase;
+  text-align: center;
+  border: 3px solid red;
+  box-shadow: 10px 20px 30px rgba(0,0,0,0.2);
+  max-width: 500px;
+}
 /* products */
 .products {
   margin: 48px 0;
