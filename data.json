@@ -10,6 +10,10 @@
         "href": "product.html",
         "price": {
             "usd": 52
+        },
+        "options": {
+            "color": "Blue",
+            "size": "XL"
         }
     },
     {
@@ -23,6 +27,10 @@
         "href": "product.html",
         "price": {
             "usd": 52
+        },
+        "options": {
+            "color": "Black",
+            "size": "S"
         }
     },
     {
@@ -36,6 +44,10 @@
         "href": "product.html",
         "price": {
             "usd": 52
+        },
+        "options": {
+            "color": "White",
+            "size": "L"
         }
     },
     {
@@ -49,6 +61,10 @@
         "href": "product.html",
         "price": {
             "usd": 52
+        },
+        "options": {
+            "color": "Yellow",
+            "size": "M"
         }
     },
     {
@@ -62,6 +78,10 @@
         "href": "product.html",
         "price": {
             "usd": 52
+        },
+        "options": {
+            "color": "Light Blue",
+            "size": "XS"
         }
     },
     {
@@ -75,6 +95,10 @@
         "href": "product.html",
         "price": {
             "usd": 52
+        },
+        "options": {
+            "color": "Green",
+            "size": "M"
         }
     }
 ]

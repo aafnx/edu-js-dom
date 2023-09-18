@@ -45,11 +45,11 @@
 .header__cart {
   position: relative;
 }
-.header__cart::after {
+.header__cart-text {
+  display: inline-block;
   position: absolute;
   bottom: 20px;
   left: 20px;
-  content: "5";
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
